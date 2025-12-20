@@ -1,0 +1,112 @@
+[
+    {
+        "customer_id": 1,
+        "target_package": "Gói VD100F",
+        "price": 100000,
+        "analysis": "Gói VD100F là một lựa chọn nâng cấp giá trị vượt trội so với gói FUN100. Với cùng mức giá 100,000đ, khách hàng nhận được thêm ưu đãi gọi nội mạng, ngoại mạng và đặc biệt là miễn phí data Facebook. Đây là phương án \"ngang giá - tốt hơn\" (better value), giải quyết bài toán chi phí mà vẫn tăng cường lợi ích, giúp giữ chân khách hàng hiệu quả bằng cách mang lại giá trị thực tế cao hơn.",
+        "script_greeting": "Em thấy mình đang sử dụng gói cước FUN100 với chi phí 100,000 đồng một tháng. Hiện tại, VNPT đang có chương trình tri ân đặc biệt, nên em xin phép giới thiệu đến mình gói cước mới là VD100F ạ. Gói này cũng có giá 100,000 đồng thôi, nhưng ưu đãi tốt hơn rất nhiều. Cụ thể là thay vì gói cũ, gói mới này mình sẽ có tới 30GB data tốc độ cao, mỗi ngày 1GB, được miễn phí tất cả các cuộc gọi nội mạng dưới 10 phút, có thêm 30 phút gọi ngoại mạng, và đặc biệt là được miễn phí hoàn toàn data khi lướt Facebook ạ. Như vậy với cùng một chi phí, mình lại được thêm rất nhiều quyền lợi về cả data và gọi thoại. Không biết mình thấy gói cước này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Nếu bây giờ mình đang bận thì để không làm phiền mình, em xin phép gửi thông tin chi tiết về gói cước ưu đãi VD100F này qua tin nhắn SMS được không ạ? Để lúc nào mình rảnh có thể xem lại, nếu thấy hợp lý thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin hoặc đăng ký luôn thì bấm phím 1 giúp em ạ. Em cảm ơn mình.",
+        "created_at": "2025-12-17 15:05:02",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 2,
+        "target_package": "Gói VIP249",
+        "price": 249000,
+        "analysis": "Gói VIP249 là một bản nâng cấp toàn diện so với gói D199G. Với mức chênh lệch chỉ 50.000đ, khách hàng nhận được lợi ích vượt trội: (1) Data hàng ngày cao hơn (10GB/ngày), (2) Miễn phí hoàn toàn data cho các ứng dụng giải trí cốt lõi (Youtube, Tiktok, Facebook, Zalo), giúp 10GB data chính được dành trọn vẹn cho các nhu cầu khác, (3) Thêm phút gọi ngoại mạng. Đây là gói cước giải trí và kết nối không giới hạn, giải quyết triệt để nỗi lo hết dung lượng khi xem video hoặc mạng xã hội.",
+        "script_greeting": "Chỉ thêm 50,000 đồng mỗi tháng, gói VIP249 mang đến dung lượng data cực lớn lên đến 10GB mỗi ngày, tức là 300GB một tháng. Điểm đặc biệt nhất là mình sẽ được hoàn toàn miễn phí, không giới hạn dung lượng tốc độ cao khi xem Youtube, lướt Tiktok, Facebook và nhắn tin Zalo. Như vậy, 10GB data mỗi ngày sẽ được dành trọn vẹn cho các nhu cầu công việc hay giải trí khác. Ngoài ra, gói cước còn miễn phí tất cả các cuộc gọi nội mạng và tặng thêm 300 phút gọi ngoại mạng. Với những ưu đãi vượt trội như vậy, không biết mình thấy gói cước VIP249 này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Để không làm mất thêm thời gian của mình, em xin phép được gửi thông tin chi tiết về gói cước siêu ưu đãi này qua tin nhắn SMS được không ạ, để mình có thể xem lại kỹ hơn lúc rảnh rỗi. Nếu sau này mình thấy phù hợp và có nhu cầu thì đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nâng cấp lên gói VIP249 hoặc muốn nhận thông tin chi tiết qua tin nhắn để tham khảo thêm, xin vui lòng bấm phím 1 ạ. Em xin chân thành cảm ơn và chúc mình một ngày tốt lành",
+        "created_at": "2025-12-17 15:05:25",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 3,
+        "target_package": "Gói VIP249",
+        "price": 249000,
+        "analysis": "Gói VIP249 là một bước nâng cấp vượt trội so với gói VD150. Lợi ích cốt lõi cần nhấn mạnh là dung lượng data tăng gấp 5 lần (từ 2GB/ngày lên 10GB/ngày) và đặc biệt là ưu đãi miễn phí hoàn toàn data cho các ứng dụng giải trí hàng đầu (Youtube, Tiktok, Facebook, Zalo). Điều này giải quyết triệt để nỗi lo hết dung lượng khi xem video hoặc lướt mạng xã hội, biến chi phí tăng thêm thành một khoản đầu tư cho trải nghiệm không giới hạn và thoải mái tuyệt đối.",
+        "script_greeting": "Hiện tại, mình đang sử dụng gói VD150 với giá 150.000 đồng mỗi tháng. Hôm nay, VNPT có chương trình mời mình nâng cấp lên gói VIP249 với những quyền lợi vượt trội hơn hẳn. Cụ thể, gói VIP249 cung cấp đến 10GB data tốc độ cao mỗi ngày, tức là nhiều gấp 5 lần so với gói cũ, giúp mình thoải mái xem phim, lướt web mà không cần lo lắng. Điểm đặc biệt nhất là gói cước này còn miễn phí hoàn toàn data khi mình truy cập các ứng dụng phổ biến như Youtube, Tiktok, Facebook và Zalo, nghĩa là mình có thể xem video cả ngày mà không tốn một chút dung lượng nào trong gói. Ngoài ra, gói cước còn tặng đến 300 phút gọi ngoại mạng, nhiều hơn đáng kể so với gói hiện tại. Về cơ bản, chỉ với chi phí hợp lý hơn một chút, mình sẽ có một trải nghiệm internet và liên lạc thực sự không giới hạn ạ. Không biết mình thấy gói cước nâng cấp này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Để không làm mất thêm thời gian của mình, em xin phép gửi thông tin chi tiết về ưu đãi của gói VIP249 này qua tin nhắn SMS được không ạ? Như vậy, lúc nào mình có thời gian rảnh thì có thể xem lại kỹ hơn, nếu thấy phù hợp thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin chi tiết qua tin nhắn hoặc muốn đăng ký gói cước ngay bây giờ, xin vui lòng bấm phím 1 giúp em ạ. Em xin chân thành cảm ơn mình đã dành thời gian lắng nghe ạ.",
+        "created_at": "2025-12-17 15:05:50",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 4,
+        "target_package": "Gói VIP249",
+        "price": 249000,
+        "analysis": "Gói VIP249 là một bản nâng cấp toàn diện so với gói D169G. Điểm bán hàng cốt lõi không chỉ là dung lượng data (300GB so với mức thấp hơn của gói cũ) mà là quyền lợi \"không giới hạn\" cho các ứng dụng mạng xã hội và video phổ biến nhất (Youtube, Tiktok, Facebook, Zalo). Với chi phí tăng thêm 80.000đ/tháng, khách hàng nhận được sự an tâm tuyệt đối khi giải trí và liên lạc, không cần lo lắng về việc hết data giữa chừng. Đây là lợi ích thực tế, giải quyết đúng nhu cầu của phân khúc khách hàng A, những người có xu hướng sử dụng dữ liệu di động nhiều cho công việc và giải trí.",
+        "script_greeting": " Em thấy mình đang sử dụng gói cước D169G với chi phí 169.000 đồng mỗi tháng. Hiện tại, VNPT đang có chương trình tri ân và muốn mời mình nâng cấp lên gói VIP249 với ưu đãi vượt trội hơn rất nhiều. Cụ thể, gói VIP249 mới có giá 249.000 đồng, nhưng bù lại mình sẽ có tới 300GB data tốc độ cao mỗi tháng, tương đương 10GB mỗi ngày để sử dụng thoải mái. Điểm đặc biệt nhất là gói cước này hoàn toàn miễn phí data khi mình lướt Tiktok, xem Youtube, Facebook và gọi Zalo, tức là mình có thể giải trí và liên lạc không giới hạn mà không tốn một chút dung lượng nào của gói chính. Ngoài ra, gói cước còn miễn phí toàn bộ cuộc gọi nội mạng và tặng đến 300 phút gọi ngoại mạng. Với những quyền lợi nâng cấp toàn diện như vậy, mình thấy gói cước mới này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ, không sao đâu ạ. Vậy để không làm mất thêm thời gian quý báu của mình, em xin phép gửi thông tin chi tiết về gói cước siêu ưu đãi VIP249 này qua tin nhắn SMS để mình tham khảo thêm được không ạ? Để lúc nào mình có thời gian rảnh có thể xem lại kỹ hơn, nếu thấy chương trình hợp lý thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin hoặc đăng ký luôn thì bấm phím 1 giúp em ạ. Em cảm ơn mình.",
+        "created_at": "2025-12-17 15:06:17",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 5,
+        "target_package": "Gói BIG200 12T",
+        "price": 200000,
+        "analysis": "Gói BIG200 12T là một lựa chọn nâng cấp hoàn hảo cho khách hàng này. Mặc dù chi phí hàng tháng tương đương (199.000đ vs 200.000đ), nhưng lợi ích mang lại vượt trội hoàn toàn. Điểm nhấn là lượng data cực khủng 4GB/ngày, gấp nhiều lần gói cũ, đáp ứng mọi nhu cầu giải trí. Quan trọng nhất là chương trình \"Mua 10 tặng 2\", thực chất giúp chi phí trung bình mỗi tháng giảm xuống còn khoảng 167.000đ, rẻ hơn gói hiện tại. Đây là một giải pháp vừa nâng cấp trải nghiệm, vừa tiết kiệm chi phí trong dài hạn, đồng thời giúp giữ chân khách hàng hiệu quả.",
+        "script_greeting": "Hiện tại, VNPT đang có một gói cước tri ân là BIG200 chu kỳ 12 tháng, với chi phí chỉ nhỉnh hơn một chút là 200,000 đồng, nhưng ưu đãi thì vượt trội hơn hẳn ạ. Cụ thể là, gói cước mới này sẽ cung cấp cho mình dung lượng data khủng lên đến 4GB tốc độ cao mỗi ngày, tổng cộng là 1440GB cho cả năm, giúp mình có thể thoải mái xem Youtube, lướt Tiktok hay làm việc trực tuyến mà không bao giờ phải lo lắng về việc hết dung lượng giữa chừng. Đặc biệt hơn nữa, khi đăng ký gói 12 tháng này, mình chỉ cần thanh toán trước 10 tháng là 2 triệu đồng và sẽ được tặng thêm 2 tháng sử dụng hoàn toàn miễn phí. Đây là giải pháp internet trọn gói và siêu tiết kiệm cho cả năm. Không biết mình thấy gói cước này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Em cảm ơn mình đã lắng nghe. Để không làm mất thêm thời gian của mình, em xin phép được gửi thông tin chi tiết về ưu đãi đặc biệt của gói BIG200 12 tháng này qua tin nhắn SMS được không ạ? Để khi nào có thời gian rảnh, mình có thể xem lại kỹ hơn, nếu thấy chương trình phù hợp thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý đăng ký để hưởng trọn ưu đãi, hoặc muốn nhận thông tin chi tiết qua tin nhắn, xin vui lòng bấm phím 1 giúp em ạ. Em xin chân thành cảm ơn mình đã dành thời gian cho VNPT ạ.",
+        "created_at": "2025-12-17 15:06:44",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 6,
+        "target_package": "Gói VD100F",
+        "price": 100000,
+        "analysis": "Gói VD100F có lợi thế vượt trội so với gói BIG90 hiện tại của khách hàng. Mặc dù cùng có 30GB data (1GB/ngày), nhưng chỉ với 10.000đ chênh lệch, khách hàng nhận được thêm giá trị cực lớn: Miễn phí gọi nội mạng dưới 10 phút, 30 phút gọi ngoại mạng, và đặc biệt là miễn phí hoàn toàn data lướt Facebook. Kịch bản sẽ tập trung nhấn mạnh vào việc \"chỉ thêm 10.000 đồng\" mà nhận được cả ưu đãi gọi thoại và data mạng xã hội, biến đây thành một món hời không thể bỏ qua.",
+        "script_greeting": "Em thấy mình đang sử dụng gói BIG90 với giá 90.000 đồng mỗi tháng. Hiện tại, VinaPhone đang có một gói cước mới ưu đãi hơn rất nhiều là gói VD100F, em muốn giới thiệu để mình tham khảo thêm ạ. So với gói BIG90 mình đang dùng chỉ có 1GB data mỗi ngày, thì với gói VD100F mới này, chỉ thêm 10.000 đồng một tháng, tức là 100.000 đồng, mình không chỉ giữ nguyên 1GB data tốc độ cao mỗi ngày mà còn được miễn phí toàn bộ cước gọi nội mạng VinaPhone cho các cuộc gọi dưới 10 phút, có thêm 30 phút gọi ngoại mạng, và đặc biệt nhất là được miễn phí hoàn toàn data khi lướt Facebook mà không lo bị trừ vào dung lượng chính của gói. Tính ra chỉ thêm một chút chi phí mà mình có cả gọi thoại và lướt Facebook thoải mái, rất tiện lợi ạ. Không biết mình thấy gói cước VD100F này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Để không làm phiền mình, em xin phép gửi thông tin chi tiết về gói ưu đãi VD100F này qua tin nhắn SMS nhé ạ. Như vậy lúc nào rảnh mình có thể xem qua, nếu thấy hợp lý thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý đăng ký gói cước hoặc nhận thông tin chi tiết qua tin nhắn, vui lòng bấm phím 1 giúp em ạ. Em xin cảm ơn và chúc mình một ngày tốt lành",
+        "created_at": "2025-12-17 15:07:08",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 7,
+        "target_package": "Gói VIP349",
+        "price": 349000,
+        "analysis": "Khách hàng đang dùng gói VIP249, thuộc phân khúc A, cho thấy họ sẵn sàng chi trả cho dịch vụ chất lượng. Việc nâng cấp lên VIP349 (chênh lệch 100.000đ) là hoàn toàn khả thi. Kịch bản sẽ tập trung vào việc chứng minh 100.000đ chênh lệch này mang lại giá trị vượt trội: data tăng vọt (từ X lên 300GB), số phút gọi ngoại mạng nhiều hơn, và đặc biệt là \"át chủ bài\" miễn phí data cho các ứng dụng giải trí hàng đầu (Youtube, Tiktok, Facebook, Zalo). Lợi ích này giúp 300GB data chính được bảo toàn cho các nhu cầu khác, tạo cảm giác \"lời\" hơn rất nhiều so với chi phí bỏ ra.",
+        "script_greeting": "Em thấy mình đang sử dụng gói cước VIP249 rất thành công, nên em gọi đến để thông báo một chương trình nâng cấp ưu đãi đặc biệt dành riêng cho các khách hàng thân thiết như mình ạ. Dạ, mình đang dùng gói VIP249 với giá 249.000 đồng, và hiện tại VNPT có gói cước cao cấp hơn là VIP349 với giá 349.000 đồng, nhưng ưu đãi thì vượt trội hơn hẳn. Cụ thể, gói mới này có dung lượng data lên đến 300GB một tháng, tương đương 10GB mỗi ngày để mình dùng thoải mái. Đặc biệt nhất, gói VIP349 hoàn toàn miễn phí data tốc độ cao khi mình lướt Tiktok, xem Youtube, Facebook và nhắn tin Zalo. Điều này có nghĩa là 10GB data mỗi ngày của mình sẽ được dùng trọn vẹn cho các công việc khác mà không bị tiêu tốn bởi các ứng dụng giải trí. Ngoài ra, số phút gọi ngoại mạng cũng tăng lên đến 400 phút ạ. Dạ, không biết mình thấy gói cước nâng cấp này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Dạ không sao đâu ạ. Để không làm mất thêm thời gian của mình, em xin phép được gửi thông tin chi tiết về gói cước VIP349 này qua tin nhắn SMS được không ạ, để lúc nào mình có thời gian rảnh thì có thể xem lại kỹ hơn. Nếu thấy phù hợp, mình có thể đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin hoặc đăng ký luôn thì bấm phím 1 giúp em ạ. Em cảm ơn mình.",
+        "created_at": "2025-12-17 15:07:33",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 8,
+        "target_package": "Gói VIP249",
+        "price": 249000,
+        "analysis": "Gói VIP249 là một bản nâng cấp toàn diện so với gói VD150. Điểm mạnh cốt lõi để thuyết phục khách hàng nằm ở việc \"giải phóng\" hoàn toàn lo lắng về dung lượng data cho các ứng dụng giải trí phổ biến nhất (Youtube, Tiktok, Facebook, Zalo). Mặc dù giá cao hơn gần 100.000đ, nhưng lợi ích mang lại là sự thoải mái sử dụng không giới hạn, cộng thêm dung lượng data gốc cực lớn (10GB/ngày) cho các nhu cầu khác và ưu đãi gọi thoại vượt trội. Đây là gói cước lý tưởng cho những người thường xuyên xem video và sử dụng mạng xã hội.",
+        "script_greeting": "Em thấy mình đang sử dụng gói VD150 với mức phí 150.000 đồng một tháng rất hiệu quả. Hiện tại, VNPT đang có chương trình tri ân, nâng cấp trải nghiệm cho khách hàng thân thiết với gói cước VIP249 giá 249.000 đồng. So với gói cũ, gói VIP249 này không chỉ tăng dung lượng data tốc độ cao lên gấp đôi, tới 300GB mỗi tháng, tức là mỗi ngày mình có hẳn 10GB để dùng thoải mái, mà đặc biệt nhất là mình sẽ được hoàn toàn miễn phí, không giới hạn dung lượng khi lướt Tiktok, xem Youtube, Facebook và nhắn tin Zalo. Điều này có nghĩa là mình có thể xem video, giải trí cả ngày mà không lo tốn một chút data nào vào 10GB kia. Ngoài ra, gói cước còn tặng thêm 300 phút gọi ngoại mạng, nhiều hơn hẳn so với gói cũ ạ. Với những ưu đãi vượt trội như vậy, không biết mình cảm thấy gói cước VIP249 này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ, không sao đâu mình. Vậy để không làm mất thêm thời gian quý báu của mình, em xin phép được gửi thông tin chi tiết về gói cước siêu ưu đãi này qua tin nhắn SMS để mình tham khảo thêm nhé. Khi nào có thời gian rảnh, mình có thể xem lại kỹ hơn, nếu cảm thấy phù hợp thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin hoặc đăng ký luôn thì bấm phím 1 giúp em ạ. Em cảm ơn mình.",
+        "created_at": "2025-12-17 15:07:56",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 9,
+        "target_package": "Gói VD100F",
+        "price": 100000,
+        "analysis": "Gói VD100F là một bản nâng cấp hợp lý từ VD90. Với chi phí chỉ tăng thêm 10.000đ, khách hàng giữ nguyên lượng data chính (30GB/tháng) và ưu đãi gọi, nhưng nhận thêm một lợi ích cực lớn là miễn phí hoàn toàn data truy cập Facebook. Điều này giải phóng 1GB data mỗi ngày cho các nhu cầu khác, thực chất là một cách \"tăng data\" gián tiếp nhưng hiệu quả, đặc biệt với những người thường xuyên sử dụng mạng xã hội. Đây là điểm nhấn chính để thuyết phục khách hàng.",
+        "script_greeting": "Em thấy mình đang sử dụng gói cước VD90 với chi phí là 90.000 đồng một tháng. Hiện tại, VNPT đang có chương trình tri ân, với gói cước mới tên là VD100F có ưu đãi tốt hơn rất nhiều mà chi phí chỉ nhỉnh hơn một chút là 100.000 đồng. Cụ thể, gói VD90 của mình đang có 1GB data mỗi ngày. Với gói VD100F mới này, mình vẫn có 1GB data tốc độ cao mỗi ngày, nhưng điểm đặc biệt nhất là mình sẽ được miễn phí hoàn toàn data khi lướt Facebook không giới hạn. Điều này có nghĩa là mình có thể thoải mái xem video, nhắn tin, cập nhật tin tức trên Facebook cả ngày mà không lo tốn vào dung lượng 1GB chính của mình. Gói cước vẫn giữ nguyên các ưu đãi gọi nội mạng miễn phí dưới 10 phút và 30 phút gọi ngoại mạng ạ. Không biết mình thấy gói cước nâng cấp này có tiện lợi hơn cho mình không ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Em xin lỗi nếu đã làm phiền mình. Để không mất thêm thời gian của mình, em xin phép gửi thông tin chi tiết về gói cước ưu đãi VD100F này qua tin nhắn SMS để mình tham khảo thêm nhé ạ? Lúc nào mình có thời gian rảnh, mình có thể xem lại, nếu thấy phù hợp thì đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, vậy để đăng ký gói cước hoặc nhận thông tin chi tiết qua tin nhắn, mình vui lòng bấm phím 1 giúp em. Em xin cảm ơn và chúc mình một ngày tốt lành ạ.",
+        "created_at": "2025-12-17 15:08:23",
+        "status": "READY_TO_CALL"
+    },
+    {
+        "customer_id": 10,
+        "target_package": "Gói VD100F",
+        "price": 100000,
+        "analysis": "Khách hàng chỉ cần chi thêm 10.000đ/tháng so với gói BIG90 hiện tại. Lợi ích vượt trội là giữ nguyên 30GB data tốc độ cao, nhưng được thêm miễn phí toàn bộ cuộc gọi nội mạng dưới 10 phút, 30 phút gọi ngoại mạng và đặc biệt là miễn phí hoàn toàn data lướt Facebook. Điều này giúp khách hàng tiết kiệm chi phí gọi điện và giải phóng dung lượng 1GB/ngày cho các nhu cầu khác, là một đề nghị nâng cấp rất hợp lý và giá trị.",
+        "script_greeting": " Dạ, em thấy mình đang sử dụng gói BIG90 với giá 90.000 đồng, mỗi ngày có 1GB data. Hiện tại, VNPT có gói cước mới là VD100F, chỉ thêm 10.000 đồng một tháng, tức là 100.000 đồng thôi ạ. Gói này vẫn giữ nguyên 1GB data mỗi ngày giống gói cũ, nhưng ưu đãi hơn rất nhiều ở chỗ mình sẽ được miễn phí tất cả các cuộc gọi nội mạng dưới 10 phút, có thêm 30 phút gọi ngoại mạng, và đặc biệt là được miễn phí hoàn toàn data khi lướt Facebook ạ. Như vậy, mình có thể thoải mái gọi điện và lướt Facebook cả ngày mà không lo tốn vào 1GB data chính, để dành dung lượng đó cho các công việc khác. Dạ không biết mình thấy gói cước VD100F này thế nào ạ?",
+        "script_objection": "Dạ vâng, em hiểu ạ. Để không làm mất thêm thời gian của mình, em xin phép gửi thông tin chi tiết về gói cước ưu đãi này qua tin nhắn SMS để lúc nào mình rảnh có thể xem lại kỹ hơn. Nếu thấy phù hợp thì mình đăng ký sau cũng được ạ.",
+        "script_closing": "Dạ, nếu mình đồng ý nhận thông tin hoặc đăng ký luôn thì bấm phím 1 giúp em ạ. Em cảm ơn mình.",
+        "created_at": "2025-12-17 15:08:45",
+        "status": "READY_TO_CALL"
+    }
+]

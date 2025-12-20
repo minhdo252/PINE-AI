@@ -1,0 +1,30 @@
+# --- 1. MÔI TRƯỜNG & BẢO MẬT (QUAN TRỌNG) ---
+.env
+.env.*
+*.env
+env/
+venv/
+.venv/
+secrets.json
+
+# --- 2. PYTHON COMPILED FILES ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- 3. LOGS & DATABASE ---
+*.log
+logs/
+*.sqlite3
+*.db
+
+# --- 4. IDE SETTINGS (Cấu hình Editor) ---
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- 5. OS FILES (File rác hệ điều hành) ---
+.DS_Store
+Thumbs.db

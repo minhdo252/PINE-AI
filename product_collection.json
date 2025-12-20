@@ -1,0 +1,92 @@
+[
+  {
+    "id": "P01",
+    "name": "Gói BIG90",
+    "desc": "Gói BIG90: Giá 90.000đ/tháng. Có 30GB Data (1GB/ngày). Gói cước data cơ bản, tiết kiệm nhất."
+  },
+  {
+    "id": "P02",
+    "name": "Gói VD90",
+    "desc": "Gói VD90: Giá 90.000đ/tháng. Có 30GB Data (1GB/ngày). Miễn phí gọi nội mạng dưới 10 phút + 30 phút ngoại mạng."
+  },
+  {
+    "id": "P03",
+    "name": "Gói FUN100",
+    "desc": "Gói FUN100: Giá 100.000đ/tháng. Data 6GB. Đặc biệt: Miễn phí data truy cập YouTube, Facebook, TikTok, Instagram. Phù hợp người hay lướt mạng xã hội."
+  },
+  {
+    "id": "P04",
+    "name": "Gói GENAI110",
+    "desc": "Gói GENAI110: Giá 110.000đ/tháng. Data 7GB. Miễn phí data Facebook, TikTok, Youtube. Dành cho GenZ thích sáng tạo nội dung."
+  },
+  {
+    "id": "P05",
+    "name": "Gói BIG120",
+    "desc": "Gói BIG120: Giá 120.000đ/tháng. Có 60GB Data khủng (2GB/ngày). Thoải mái lướt web tốc độ cao."
+  },
+  {
+    "id": "P06",
+    "name": "Gói VD100F",
+    "desc": "Gói VD100F: Giá 100.000đ/tháng. Có 30GB (1GB/ngày). Miễn phí gọi nội mạng <10p, 30p ngoại mạng. Miễn phí Data lướt Facebook."
+  },
+  {
+    "id": "P07",
+    "name": "Gói VD120N",
+    "desc": "Gói VD120N: Giá 120.000đ/tháng. Có 45GB (1.5GB/ngày). Miễn phí gọi nội mạng <10p, tặng thêm 50 phút ngoại mạng."
+  },
+  {
+    "id": "P08",
+    "name": "Gói VD120M",
+    "desc": "Gói VD120M: Giá 120.000đ/tháng. Có 30GB (1GB/ngày). Combo toàn diện: Miễn phí gọi + Miễn phí Data Youtube, Facebook, Tiktok, MyTV."
+  },
+  {
+    "id": "P09",
+    "name": "Gói VD150",
+    "desc": "Gói VD150: Giá 150.000đ/tháng. Có 60GB (2GB/ngày). Miễn phí gọi nội mạng <10p, tặng 80 phút ngoại mạng. Phù hợp người gọi nhiều."
+  },
+  {
+    "id": "P10",
+    "name": "Gói D169G",
+    "desc": "Gói D169G: Giá 169.000đ/tháng. Data siêu khủng 210GB (7GB/ngày). Miễn phí gọi nội mạng <10p, 150 phút ngoại mạng."
+  },
+  {
+    "id": "P11",
+    "name": "Gói D199G",
+    "desc": "Gói D199G: Giá 199.000đ/tháng. Data 240GB (8GB/ngày). Miễn phí gọi nội mạng <10p, 250 phút ngoại mạng."
+  },
+  {
+    "id": "P12",
+    "name": "Gói VIP249",
+    "desc": "Gói VIP249: Giá 249.000đ/tháng. Data 300GB (10GB/ngày). Miễn phí gọi nội mạng, 300p ngoại mạng. Free Data Zalo, Youtube, Tiktok, Facebook."
+  },
+  {
+    "id": "P13",
+    "name": "Gói VIP349",
+    "desc": "Gói VIP349: Giá 349.000đ/tháng (Gói cao cấp nhất). Data 300GB (10GB/ngày). Miễn phí gọi nội mạng, 400p ngoại mạng. Free Data Zalo, Youtube, Tiktok, Facebook."
+  },
+  {
+    "id": "P14",
+    "name": "Gói BIG90 6T",
+    "desc": "Gói BIG90 6T: Giá 450.000đ cho 6 tháng (tương đương 75k/tháng). Data 180GB. Tiết kiệm hơn gói tháng."
+  },
+  {
+    "id": "P15",
+    "name": "Gói BIG90 12T",
+    "desc": "Gói BIG90 12T: Giá 900.000đ cho 12 tháng. Ưu đãi đặc biệt: Mua 10 tháng tặng 2 tháng dùng cả năm."
+  },
+  {
+    "id": "P16",
+    "name": "Gói BIG200 12T",
+    "desc": "Gói BIG200 12T: Giá 2.000.000đ/năm. Data khủng 1440GB (4GB/ngày). Mua 10 tặng 2. Giải pháp internet trọn gói cho cả năm."
+  },
+  {
+    "id": "POL01",
+    "name": "Chính sách Wifi 6",
+    "desc": "Chính sách đổi Modem Wifi 6: Miễn phí hoàn toàn cho khách hàng VIP hoặc dùng trên 2 năm tại Hà Nội."
+  },
+  {
+    "id": "SCR01",
+    "name": "Kịch bản Upsell",
+    "desc": "Dạ em thấy nhu cầu mình hay xem Tiktok và Youtube, em đề xuất gói VD120M vừa có 30GB data, vừa được miễn phí hoàn toàn data khi xem video, không lo hết dung lượng giữa chừng ạ."
+  }
+]
