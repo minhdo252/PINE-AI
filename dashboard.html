@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PINE AI - VNPT Smart Dashboard</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --vnpt-blue: #00a1e4;
+            --vnpt-dark: #0072bc;
+            --bg-body: #f8fafc;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-body);
+            color: #0f172a;
+        }
+
+        /* --- Header Gradient --- */
+        .sticky-header {
+            position: sticky; top: 0; z-index: 50;
+            background: linear-gradient(135deg, var(--vnpt-blue) 0%, var(--vnpt-dark) 100%);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- Mascot Animation --- */
+        .mascot-container {
+            width: 60px; height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            border: 2px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        .mascot-container:hover { transform: scale(1.1) rotate(5deg); }
+        .mascot-container img { width: 75%; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+
+        /* --- Glass Cards --- */
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        }
+
+        /* --- Tabs --- */
+        .tab-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem; font-weight: 700;
+            color: rgba(255,255,255,0.8);
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+        .tab-active {
+            background: #ffffff !important;
+            color: var(--vnpt-dark) !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="sticky-header px-6 py-3">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <div class="mascot-container">
+                    <img src="https://github.com/chydua/PINE/blob/main/Screenshot_2025-12-18_at_19.19.29-removebg-preview.png?raw=true" alt="PINE">
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white tracking-tight">PINE AI <span class="opacity-70 font-normal text-lg">| Dashboard</span></h1>
+                    <p class="text-xs text-white/80 font-medium uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        Last updated: <span id="last-update">...</span>
+                        <span id="connection-status" class="text-red-300 font-bold ml-2"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex bg-white/20 p-1 rounded-2xl backdrop-blur-md">
+                <button onclick="switchPeriod('today')" class="tab-btn tab-active filter-btn">HÔM NAY</button>
+                <button onclick="switchPeriod('week')" class="tab-btn filter-btn">TUẦN NÀY</button>
+                <button onclick="switchPeriod('month')" class="tab-btn filter-btn">THÁNG NÀY</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1600px] mx-auto px-6 py-8 space-y-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="glass-card p-6 border-l-4 border-sky-500">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Tổng cuộc gọi</p>
+                <h2 class="text-3xl font-black text-slate-800" id="kpi-total-calls">0</h2>
+                <div class="mt-2 text-xs text-green-600 font-bold flex items-center gap-1">
+                    <i class="fas fa-arrow-up"></i> Traffic ổn định
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-emerald-500">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">AI Tự xử lý (FCR)</p>
+                <h2 class="text-3xl font-black text-slate-800 flex items-baseline">
+                    <span id="kpi-fcr">0</span><span class="text-lg text-slate-400 font-bold ml-1">%</span>
+                </h2>
+                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-emerald-500 h-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 border-l-4 border-amber-500">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Chi phí / Cuộc</p>
+                <h2 class="text-3xl font-black text-slate-800 flex items-baseline">
+                    <span id="kpi-cost">0</span><span class="text-sm text-slate-400 font-bold ml-1">VNĐ</span>
+                </h2>
+            </div>
+
+            <div class="glass-card p-6 border-l-4 border-blue-500">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Thời gian xử lý (AHT)</p>
+                <h2 class="text-3xl font-black text-slate-800" id="kpi-aht">00:00</h2>
+            </div>
+
+            <div class="glass-card p-6 border-l-4 border-indigo-500">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Hài lòng (CSAT)</p>
+                <h2 class="text-3xl font-black text-slate-800 flex items-baseline">
+                    <span id="kpi-csat">0.0</span><span class="text-lg text-slate-400 font-bold ml-1">/ 5</span>
+                </h2>
+                <div class="mt-2 text-amber-400 text-sm flex gap-1">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-8 glass-card p-6">
+                <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fas fa-chart-line"></i></span>
+                    Hiệu quả Kinh doanh
+                </h3>
+                <div class="h-[320px] w-full">
+                    <canvas id="businessChart"></canvas>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 glass-card p-6">
+                <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center"><i class="fas fa-bullseye"></i></span>
+                    Tỉ lệ Dự định (Intent)
+                </h3>
+                <div class="h-[250px] relative mb-4">
+                    <canvas id="intentChart"></canvas>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-slate-50 p-2 rounded-lg text-xs font-bold text-slate-600 border border-slate-100 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#00a1e4]"></span> Mạng yếu
+                    </div>
+                    <div class="bg-slate-50 p-2 rounded-lg text-xs font-bold text-slate-600 border border-slate-100 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#e74c3c]"></span> Hủy gói
+                    </div>
+                    <div class="bg-slate-50 p-2 rounded-lg text-xs font-bold text-slate-600 border border-slate-100 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#9b59b6]"></span> Ít Data
+                    </div>
+                    <div class="bg-slate-50 p-2 rounded-lg text-xs font-bold text-slate-600 border border-slate-100 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#f1c40f]"></span> Đối thủ
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-8 glass-card p-6">
+                <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-satellite-dish"></i></span>
+                    Nhật ký Hoạt động (Live Feed)
+                </h3>
+                <div id="activity-feed" class="space-y-3 h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                    </div>
+            </div>
+
+            <div class="lg:col-span-4 glass-card p-6 flex flex-col">
+                <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fas fa-face-smile"></i></span>
+                    Cảm xúc Khách hàng
+                </h3>
+                <div class="h-[250px] w-full my-auto">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center pt-8 pb-4 text-slate-400 text-xs font-bold uppercase tracking-[0.2em]">
+            &copy; 2025 PINE AI - GIẢI PHÁP CSKH THÔNG MINH
+        </footer>
+
+    </main>
+
+    <script>
+        // CẤU HÌNH API
+        const API_URL = "http://localhost:8000"; 
+        
+        let rawData = [];
+        let currentPeriod = 'today';
+        let busChart, intChart, sentChart;
+
+        // --- 1. FETCH DATA ---
+        async function fetchDashboardData() {
+            try {
+                const res = await fetch(`${API_URL}/api/dashboard-stats`);
+                const json = await res.json();
+                
+                if (json.status === 'success') {
+                    rawData = json.data;
+                    document.getElementById('connection-status').innerText = ""; 
+                    
+                    loadDashboard(currentPeriod);
+                    
+                    const indicator = document.getElementById('last-update');
+                    indicator.innerText = new Date().toLocaleTimeString('vi-VN');
+                }
+            } catch (e) {
+                console.error("Lỗi kết nối Dashboard:", e);
+                document.getElementById('connection-status').innerText = "(Mất kết nối)";
+            }
+        }
+
+        // --- 2. FORMAT HELPER ---
+        function formatAHT(seconds) {
+            if (!seconds || isNaN(seconds)) return "00:00";
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // --- 3. FILTER & CALC ---
+        function filterData(period) {
+            if (!rawData || rawData.length === 0) return [];
+            const now = new Date();
+            const startOfDay = new Date(now.setHours(0,0,0,0));
+            const startOfWeek = new Date(new Date().setDate(now.getDate() - 7));
+            const startOfMonth = new Date(new Date().setDate(now.getDate() - 30));
+
+            return rawData.filter(item => {
+                const itemTime = new Date(item.time);
+                if (period === 'today') return itemTime >= startOfDay;
+                if (period === 'week') return itemTime >= startOfWeek;
+                return true;
+            });
+        }
+
+        function calculateMetrics(data) {
+            const total = data.length;
+            if (total === 0) return { totalCalls: 0, avgCost: 0, aht: 0, fcr: 0, avgCSAT: 0, intents: { network:0, cancel:0, competitor:0, low_data:0 }, sentiments: { pos:0, neu:0, neg:0 } };
+
+            const totalCost = data.reduce((sum, c) => sum + (c.cost || 0), 0);
+            const totalDur = data.reduce((sum, c) => sum + (Number(c.dur) || 0), 0);
+            const totalCSAT = data.reduce((sum, c) => sum + (c.csat || 0), 0);
+            const fcrCount = data.filter(c => c.ai).length;
+            
+            const intents = { network: 0, cancel: 0, competitor: 0, low_data: 0 };
+            const sents = { pos: 0, neu: 0, neg: 0 };
+
+            data.forEach(c => {
+                const i = (c.intent || "").toLowerCase();
+                if(i.includes('network')) intents.network++;
+                else if(i.includes('low_data') || i.includes('data')) intents.low_data++;
+                else if(i.includes('cancel')) intents.cancel++;
+                else intents.competitor++;
+
+                if(c.sent === 'positive') sents.pos++;
+                else if(c.sent === 'negative') sents.neg++;
+                else sents.neu++;
+            });
+
+            return {
+                totalCalls: total,
+                avgCost: Math.round(totalCost / total),
+                aht: Math.round(totalDur / total),
+                fcr: ((fcrCount / total) * 100).toFixed(1),
+                avgCSAT: (totalCSAT / total).toFixed(1),
+                intents: intents,
+                sentiments: sents
+            };
+        }
+
+        // --- 4. RENDER CHARTS ---
+        function renderCharts(metrics, period) {
+            // Chart Defaults
+            Chart.defaults.font.family = 'Plus Jakarta Sans';
+            Chart.defaults.color = '#64748b';
+
+            // Business Chart
+            const labels = period === 'today' ? ['08:00', '10:00', '12:00', '14:00', '16:00'] : ['Th 2', 'Th 3', 'Th 4', 'Th 5', 'Th 6', 'Th 7', 'CN'];
+            const retentionData = [65, 68, 62, 70, 75, 72, 78]; // Placeholder
+            const upsellData = [10, 12, 8, 15, 14, 13, 16]; // Placeholder
+
+            const busCtx = document.getElementById('businessChart').getContext('2d');
+            if (busChart) busChart.destroy();
+            busChart = new Chart(busCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Retention (%)', data: retentionData.slice(0, labels.length), borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', tension: 0.4, fill: true, borderWidth: 3 },
+                        { label: 'Upsell (%)', data: upsellData.slice(0, labels.length), borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.1)', tension: 0.4, fill: true, borderWidth: 3 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
+            });
+
+            // Intent Chart
+            const intCtx = document.getElementById('intentChart').getContext('2d');
+            if (intChart) intChart.destroy();
+            intChart = new Chart(intCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mạng yếu', 'Huỷ gói', 'Đối thủ', 'Ít Data'],
+                    datasets: [{
+                        data: [metrics.intents.network, metrics.intents.cancel, metrics.intents.competitor, metrics.intents.low_data],
+                        backgroundColor: ['#0ea5e9', '#ef4444', '#eab308', '#a855f7'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+            });
+
+            // Sentiment Chart
+            const sentCtx = document.getElementById('sentimentChart').getContext('2d');
+            if (sentChart) sentChart.destroy();
+            sentChart = new Chart(sentCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Tích cực', 'Trung lập', 'Tiêu cực'],
+                    datasets: [{
+                        data: [metrics.sentiments.pos, metrics.sentiments.neu, metrics.sentiments.neg],
+                        backgroundColor: ['#10b981', '#cbd5e1', '#f43f5e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+
+        // --- 5. RENDER FEED ---
+        function updateFeed() {
+            const feedContainer = document.getElementById('activity-feed');
+            feedContainer.innerHTML = ''; 
+            const recentItems = rawData.slice(0, 10);
+
+            recentItems.forEach(item => {
+                let iconClass = 'bg-sky-100 text-sky-600';
+                let icon = 'fa-phone';
+                let title = `Cuộc gọi ${item.id}`;
+                let msg = `Kết thúc. Intent: <b class="text-slate-700">${item.intent}</b>`;
+
+                if (item.upsell) {
+                    iconClass = 'bg-emerald-100 text-emerald-600'; icon = 'fa-arrow-trend-up';
+                    title = 'Upsell Thành công!';
+                    msg = `KH ${item.id} đã nâng cấp gói cước.`;
+                } else if (item.intent === 'low_data') {
+                    iconClass = 'bg-purple-100 text-purple-600'; icon = 'fa-database';
+                    title = 'Phàn nàn Data';
+                    msg = `KH ${item.id} báo dung lượng thấp.`;
+                } else if (item.sent === 'negative') {
+                    iconClass = 'bg-rose-100 text-rose-600'; icon = 'fa-triangle-exclamation';
+                    title = 'Cảnh báo Rủi ro';
+                    msg = `KH ${item.id} có thái độ tiêu cực.`;
+                }
+
+                const timeString = new Date(item.time).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+
+                const html = `
+                    <div class="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white hover:shadow-md transition-all">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${iconClass}">
+                            <i class="fas ${icon}"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-bold text-slate-800">${title}</h4>
+                                <span class="text-[10px] font-bold text-slate-400 bg-white px-2 py-1 rounded-full border">${timeString}</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">${msg}</p>
+                            <div class="mt-2 flex gap-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wide">
+                                <span><i class="fas fa-star text-amber-400 mr-1"></i> ${item.csat}/5</span>
+                                <span><i class="fas fa-clock text-blue-400 mr-1"></i> ${item.dur}s</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                feedContainer.innerHTML += html;
+            });
+        }
+
+        // --- 6. SWITCH PERIOD ---
+        function switchPeriod(period) {
+            currentPeriod = period;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+            event.target.classList.add('tab-active');
+            loadDashboard(period);
+        }
+
+        function loadDashboard(period) {
+            const filteredData = filterData(period);
+            const metrics = calculateMetrics(filteredData);
+
+            document.getElementById('kpi-total-calls').innerText = metrics.totalCalls.toLocaleString();
+            document.getElementById('kpi-cost').innerText = metrics.avgCost.toLocaleString();
+            document.getElementById('kpi-aht').innerText = formatAHT(metrics.aht);
+            document.getElementById('kpi-fcr').innerText = metrics.fcr;
+            document.getElementById('kpi-csat').innerText = metrics.avgCSAT;
+
+            renderCharts(metrics, period);
+            updateFeed();
+        }
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchDashboardData();
+            setInterval(fetchDashboardData, 3000); 
+        });
+    </script>
+</body>
+</html>

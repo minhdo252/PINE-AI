@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PINE AI - VNPT Smart Contact Center</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE VARIABLES --- */
+        :root { 
+            --vnpt-blue: #00a1e4; 
+            --vnpt-dark: #0072bc; 
+            --bg-body: #f4f7fa; 
+            --chat-bot: #ffffff; 
+            --chat-user: #e3f2fd; 
+        }
+        
+        body { font-family: 'Inter', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg-body); color: #333; overflow: hidden; }
+        
+        /* --- SIDEBAR --- */
+        .sidebar { width: 320px; background: linear-gradient(160deg, var(--vnpt-dark) 0%, var(--vnpt-blue) 100%); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; color: white; box-shadow: 4px 0 20px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; }
+        
+        .mascot-container { width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid rgba(255,255,255,0.3); transition: 0.3s; position: relative; flex-shrink: 0; }
+        .mascot-container.active { border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.6); transform: scale(1.05); }
+        .mascot-container img { width: 70%; }
+        
+        .brand-title { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: 1px; margin-top: 5px; }
+        .brand-sub { font-size: 12px; opacity: 0.8; margin-top: 2px; font-weight: 300; margin-bottom: 20px; }
+        
+        .visualizer { display: flex; gap: 4px; height: 40px; margin-top: 20px; align-items: center; flex-shrink: 0; }
+        .bar { width: 5px; height: 5px; background: rgba(255,255,255,0.6); border-radius: 5px; transition: 0.1s; }
+        
+        /* --- UX DASHBOARD (NÂNG CẤP GIAO DIỆN) --- */
+        .ux-dashboard { 
+            width: 100%; 
+            background: rgba(255, 255, 255, 0.15); /* Nền sáng hơn */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-sizing: border-box; 
+            margin-top: 15px; 
+            margin-bottom: auto; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+            animation: fadeIn 0.5s ease; 
+        }
+
+        .ux-header { 
+            font-size: 13px; 
+            font-weight: 800; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            padding-bottom: 10px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .metric-item { margin-bottom: 18px; }
+
+        .metric-label { 
+            font-size: 11px; 
+            color: rgba(255, 255, 255, 0.9); 
+            margin-bottom: 4px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value { 
+            font-size: 26px; 
+            font-weight: 800; 
+            color: #fff; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: baseline; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        /* --- STYLE RIÊNG CHO PHẦN Ý ĐỊNH (CAPSULE STYLE - NO ICON) --- */
+        #ux-intent {
+            background: rgba(0, 161, 228, 0.15); /* Nền xanh rất nhạt */
+            border: 1px solid rgba(0, 229, 255, 0.4); /* Viền sáng */
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 30px; /* Bo góc tròn như viên thuốc */
+            margin-top: 8px;
+            text-transform: capitalize; 
+            box-shadow: 0 0 15px rgba(0, 161, 228, 0.15); /* Bóng phát sáng nhẹ */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+        }
+        
+        /* Hiệu ứng rung nhẹ khi đổi ý định */
+        @keyframes pop { 50% { transform: scale(1.05); } }
+        .pop-anim { animation: pop 0.2s ease; }
+
+        .metric-unit { 
+            font-size: 12px; 
+            font-weight: 500; 
+            color: rgba(255, 255, 255, 0.7); 
+            margin-left: 5px;
+        }
+
+        /* Thanh cảm xúc đẹp hơn */
+        .sentiment-track { 
+            width: 100%; 
+            height: 10px; 
+            background: rgba(0, 0, 0, 0.25); 
+            border-radius: 10px; 
+            overflow: hidden; 
+            margin-top: 8px; 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .sentiment-fill { 
+            height: 100%; 
+            width: 50%; 
+            background: #f1c40f; 
+            border-radius: 10px;
+            transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.5s ease; 
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+        }
+        
+        /* Hộp Latency con */
+        .latency-group { display: flex; gap: 10px; margin-top: 10px; }
+        
+        .latency-box { 
+            flex: 1; 
+            background: rgba(0,0,0,0.2); 
+            padding: 8px 12px; 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .latency-title { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 600; }
+        .latency-num { font-size: 16px; font-weight: 700; margin-top: 4px; display: block; }
+        
+        .stt-color { color: #4fc3f7; text-shadow: 0 0 8px rgba(79, 195, 247, 0.3); }
+        .ai-color { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, 0.3); }
+
+        /* --- MAIN CONTENT & CHAT --- */
+        .main-content { flex: 1; display: flex; flex-direction: column; background: white; border-radius: 30px 0 0 30px; margin-left: -20px; z-index: 20; overflow: hidden; box-shadow: -5px 0 20px rgba(0,0,0,0.05); }
+        .top-bar { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; background: white; }
+        
+        .call-input { display: flex; gap: 15px; align-items: center; }
+        .input-group { display: flex; align-items: center; gap: 10px; background: #f0f2f5; padding: 5px 15px; border-radius: 12px; }
+        .input-group label { font-size: 13px; font-weight: 600; color: #555; }
+        .input-group input { border: none; background: transparent; width: 50px; font-weight: bold; color: var(--vnpt-dark); outline: none; font-size: 16px; text-align: center; }
+        
+        #btnCall { background: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        #btnCall:hover { transform: translateY(-2px); } #btnCall:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        
+        .chat-area { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        .msg { max-width: 70%; padding: 12px 18px; border-radius: 18px; font-size: 15px; line-height: 1.5; position: relative; animation: fadeIn 0.3s ease; }
+        .msg.bot { background: var(--chat-bot); border: 1px solid #eee; align-self: flex-start; border-bottom-left-radius: 2px; color: #444; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .msg.user { background: var(--chat-user); color: #0d47a1; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .msg.info { align-self: center; font-size: 12px; color: #999; background: #f5f5f5; padding: 5px 15px; border-radius: 20px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .control-panel { padding: 30px; display: flex; flex-direction: column; align-items: center; border-top: 1px solid #f0f0f0; }
+        #recordBtn { width: 70px; height: 70px; border-radius: 50%; border: none; background: var(--vnpt-blue); color: white; font-size: 24px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,161,228,0.3); transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        #recordBtn.recording { background: #ff4757; transform: scale(1.1); box-shadow: 0 0 0 8px rgba(255, 71, 87, 0.2); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(255, 71, 87, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); } }
+        .status-text { margin-top: 15px; font-weight: 600; color: #888; font-size: 14px; } .status-text.error { color: #ff4757; }
+        
+        /* RATING */
+        .rating-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .rating-box { background: white; width: 350px; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: popup 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popup { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .rating-box h3 { margin: 0 0 10px; color: var(--vnpt-dark); } .rating-box p { font-size: 13px; color: #666; margin-bottom: 20px; }
+        .star-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .star-group i { font-size: 32px; color: #ddd; cursor: pointer; transition: 0.2s; }
+        .star-group i:hover, .star-group i.active { color: #f1c40f; transform: scale(1.2); }
+        #ratingNote { width: 100%; padding: 10px; border: 1px solid #eee; border-radius: 10px; font-family: inherit; font-size: 13px; box-sizing: border-box; margin-bottom: 20px; resize: none; height: 60px; }
+        .rating-actions { display: flex; gap: 10px; justify-content: center; } .rating-actions button { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 13px; }
+        .btn-skip { background: #f0f2f5; color: #666; } .btn-submit { background: var(--vnpt-blue); color: white; } .btn-submit:hover { background: var(--vnpt-dark); }
+        
+        /* TIMER STYLE */
+        .call-timer {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--vnpt-dark);
+            background: #e3f2fd;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 20px;
+            border: 1px solid rgba(0, 114, 188, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="mascot-container" id="mascotBox">
+            <img src="https://github.com/chydua/PINE/blob/main/Screenshot_2025-12-18_at_19.19.29-removebg-preview.png?raw=true" alt="PINE Mascot">
+        </div>
+        <div class="brand-title">PINE AI</div>
+        <div class="brand-sub">VNPT Smart Contact Center</div>
+
+        <div class="ux-dashboard">
+            <div class="ux-header">
+                <span><i class="fas fa-chart-line"></i> UX METRICS</span>
+                <span style="font-size: 9px; background: #e74c3c; color: white; padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 8px rgba(231,76,60,0.6);">LIVE</span>
+            </div>
+            
+            <div class="metric-item">
+                <div class="metric-label">TỔNG ĐỘ TRỄ (LATENCY)</div>
+                <div class="metric-value">
+                    <span id="ux-latency-total">0.00</span> 
+                    <span class="metric-unit">s</span>
+                </div>
+                
+                <div class="latency-group">
+                    <div class="latency-box">
+                        <span class="latency-title">STT</span>
+                        <span id="ux-latency-stt" class="latency-num stt-color">0.00</span>
+                    </div>
+                    <div class="latency-box">
+                        <span class="latency-title">AI LOGIC</span>
+                        <span id="ux-latency-ai" class="latency-num ai-color">0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-item">
+                <div class="metric-label">CẢM XÚC (SENTIMENT)</div>
+                <div class="metric-value" id="ux-sentiment-text" style="font-size: 16px;">---</div>
+                <div class="sentiment-track">
+                    <div class="sentiment-fill" id="ux-sentiment-bar" style="width: 50%;"></div>
+                </div>
+            </div>
+            <div class="metric-item" style="margin-bottom: 0;">
+                <div class="metric-label">Ý ĐỊNH (INTENT)</div>
+                <div id="ux-intent">---</div>
+            </div>
+        </div>
+        <div style="flex: 1;"></div>
+        <div class="visualizer" id="visualizer">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <div style="margin-top: 20px; font-size: 11px; opacity: 0.6; text-align: center;">© 2025 VNPT GROUP</div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="call-input">
+                <div class="call-timer">
+                    <i class="far fa-clock"></i> 
+                    <span id="callTimerDisplay">00:00</span>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> ID KHÁCH:</label>
+                    <input type="number" id="customerId" value="1" min="1" max="10">
+                </div>
+                <button id="btnCall" type="button" onclick="startCall()">
+                    <i class="fas fa-phone-alt"></i> BẮT ĐẦU GỌI
+                </button>
+            </div>
+            <div style="font-weight: 600; color: var(--vnpt-dark);">
+                <img src="https://github.com/chydua/PINE/blob/main/fda.png?raw=true" height="30">
+            </div>
+        </div>
+
+        <div class="chat-area" id="logArea">
+            <div class="msg info">Vui lòng chọn ID khách hàng và nhấn "Bắt đầu gọi"</div>
+        </div>
+
+        <div class="control-panel" id="chatArea">
+            <button id="recordBtn" type="button" onmousedown="startRecording()" onmouseup="stopRecording()" onmouseleave="stopRecording()" disabled>
+                <i class="fas fa-microphone"></i>
+            </button>
+            <div class="status-text" id="status">Sẵn sàng kết nối</div>
+        </div>
+    </div>
+
+    <div id="ratingOverlay" class="rating-overlay">
+        <div class="rating-box">
+            <h3>Đánh giá trải nghiệm</h3>
+            <p>Bạn hài lòng với cuộc trò chuyện này chứ?</p>
+            <div class="star-group">
+                <i class="fas fa-star" data-val="1" onclick="selectStar(1)"></i>
+                <i class="fas fa-star" data-val="2" onclick="selectStar(2)"></i>
+                <i class="fas fa-star" data-val="3" onclick="selectStar(3)"></i>
+                <i class="fas fa-star" data-val="4" onclick="selectStar(4)"></i>
+                <i class="fas fa-star" data-val="5" onclick="selectStar(5)"></i>
+            </div>
+            <textarea id="ratingNote" placeholder="Góp ý thêm (tùy chọn)..."></textarea>
+            <div class="rating-actions">
+                <button class="btn-skip" type="button" onclick="closeRating()">Đóng</button>
+                <button class="btn-submit" type="button" onclick="submitRating()">Gửi đánh giá</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:8000"; // Thay IP nếu cần
+        
+        let mediaRecorder;
+        let audioChunks = [];
+        let audioQueue = [];
+        let isPlaying = false;
+        let isSessionEnded = false; 
+        let currentAudioObject = null; 
+        let audioContext, analyser, dataArray;
+        let currentBotBubble = null; 
+        let abortController = null;
+
+        // --- TIMER VARS ---
+        let timerInterval = null;
+        let t0_record = 0; 
+        let t1_stt_end = 0; 
+        let currentPhase = 'idle';
+        let isLogicReady = false;
+
+        // --- CALL DURATION TIMER VARS ---
+        let callDurationInterval = null;
+        let callSeconds = 0;
+
+        function startCallTimer() {
+            stopCallTimer();
+            callSeconds = 0;
+            updateCallTimerDisplay();
+            callDurationInterval = setInterval(() => {
+                callSeconds++;
+                updateCallTimerDisplay();
+            }, 1000);
+        }
+
+        function stopCallTimer() {
+            if (callDurationInterval) {
+                clearInterval(callDurationInterval);
+                callDurationInterval = null;
+            }
+        }
+
+        function resetCallTimer() {
+            stopCallTimer();
+            callSeconds = 0;
+            updateCallTimerDisplay();
+        }
+
+        function updateCallTimerDisplay() {
+            const m = Math.floor(callSeconds / 60).toString().padStart(2, '0');
+            const s = (callSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('callTimerDisplay').innerText = `${m}:${s}`;
+        }
+
+        // --- 1. VISUALIZER & UI ---
+        function initVisualizer(stream) {
+            if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioContext.createMediaStreamSource(stream);
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 64;
+            source.connect(analyser);
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+            drawVisualizer();
+        }
+
+        function drawVisualizer() {
+            if (!analyser) return;
+            requestAnimationFrame(drawVisualizer);
+            analyser.getByteFrequencyData(dataArray);
+            document.querySelectorAll('.bar').forEach((bar, i) => {
+                const h = Math.max(5, dataArray[i] / 255 * 40);
+                bar.style.height = h + 'px';
+            });
+        }
+
+        function log(msg, type='info') {
+            const logArea = document.getElementById('logArea');
+            if (type === 'bot' && currentBotBubble) {
+                currentBotBubble.innerHTML += msg;
+            } else {
+                const div = document.createElement('div');
+                div.className = `msg ${type}`;
+                div.innerHTML = msg;
+                logArea.appendChild(div);
+                if (type === 'bot') currentBotBubble = div;
+                else currentBotBubble = null;
+            }
+            logArea.scrollTo({ top: logArea.scrollHeight, behavior: 'smooth' });
+        }
+
+        // --- 2. RATING ---
+        let currentRating = 0;
+        function showRating() { document.getElementById('ratingOverlay').style.display = 'flex'; currentRating = 0; updateStars(0); }
+        function closeRating() { document.getElementById('ratingOverlay').style.display = 'none'; resetCallUI(); }
+        function selectStar(n) { currentRating = n; updateStars(n); }
+        function updateStars(n) { document.querySelectorAll('.star-group i').forEach((star, index) => { if (index < n) star.classList.add('active'); else star.classList.remove('active'); }); }
+        
+        async function submitRating() {
+            if (currentRating === 0) { alert("Vui lòng chọn số sao!"); return; }
+            const cid = document.getElementById('customerId').value;
+            const note = document.getElementById('ratingNote').value;
+            document.querySelector('.btn-submit').innerText = "Đang gửi...";
+            try {
+                await fetch(`${API_URL}/submit-feedback`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ customer_id: cid, stars: currentRating, note: note }) });
+                alert("Cảm ơn đánh giá của bạn!");
+            } catch (e) { alert("Đã lưu đánh giá (Offline Mode)!"); }
+            document.querySelector('.btn-submit').innerText = "Gửi đánh giá"; 
+            closeRating();
+        }
+
+        // --- 3. CALL CONTROL ---
+        function resetCallUI() {
+            document.getElementById('btnCall').disabled = false;
+            document.getElementById('btnCall').innerHTML = '<i class="fas fa-phone-alt"></i> BẮT ĐẦU GỌI';
+            document.getElementById('btnCall').style.background = '#27ae60';
+            document.getElementById('btnCall').onclick = startCall;
+            document.getElementById('recordBtn').disabled = true;
+            document.getElementById('status').innerText = "Sẵn sàng kết nối";
+            if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
+            currentBotBubble = null; 
+            stopTimer(); 
+            resetCallTimer();
+        }
+
+        function endCall() {
+            stopBotResponse(); 
+            stopCallTimer();
+            isSessionEnded = true;
+            document.getElementById('mascotBox').classList.remove('active');
+            showRating();
+        }
+
+        async function startCall() {
+            const cid = document.getElementById('customerId').value;
+            const btnCall = document.getElementById('btnCall');
+            btnCall.disabled = true; btnCall.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ĐANG KẾT NỐI...';
+            document.getElementById('logArea').innerHTML = '';
+            document.getElementById('status').innerText = "Đang khởi tạo...";
+            isSessionEnded = false; audioQueue = []; isPlaying = false; currentBotBubble = null;
+            
+            stopBotResponse();
+            startCallTimer();
+
+            try {
+                abortController = new AbortController();
+                const formData = new FormData();
+                formData.append('customer_id', cid);
+                
+                const res = await fetch(`${API_URL}/start-call`, { 
+                    method: 'POST', 
+                    body: formData, 
+                    signal: abortController.signal 
+                });
+                
+                btnCall.disabled = false; btnCall.innerHTML = '<i class="fas fa-phone-slash"></i> KẾT THÚC';
+                btnCall.style.background = '#e74c3c'; btnCall.onclick = endCall;
+                document.getElementById('recordBtn').disabled = false;
+                document.getElementById('status').innerText = "Nhấn giữ Mic để nói";
+                await readStream(res);
+            } catch (e) {
+                if (e.name === 'AbortError') return;
+                console.error(e); log("Lỗi kết nối Server!", 'info'); resetCallUI();
+            }
+        }
+
+        function stopBotResponse() {
+            if (currentAudioObject) { currentAudioObject.pause(); currentAudioObject = null; }
+            audioQueue = []; isPlaying = false;
+            if (abortController) { abortController.abort(); abortController = null; }
+            document.getElementById('mascotBox').classList.remove('active');
+            stopTimer();
+        }
+
+        // --- 4. STREAM & AUDIO ---
+        async function readStream(response) {
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+            isLogicReady = false; 
+
+            try {
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split("\n");
+                    buffer = lines.pop(); 
+
+                    for (const line of lines) {
+                        if (!line.trim()) continue;
+                        try {
+                            const data = JSON.parse(line);
+                            
+                            if (data.user_text) { 
+                                currentBotBubble = null; 
+                                log(data.user_text, 'user'); 
+                                switchToAiPhase();
+                            }
+                            
+                            if (data.type === "metrics_update") {
+                                isLogicReady = true;
+                                updateUXDashboard(data.data);
+                            }
+
+                            if (data.bot_text) {
+                                log(data.bot_text, 'bot');
+                                if (isLogicReady) { stopTimer(); }
+                            }
+                            
+                            if (data.audio_base64) { 
+                                audioQueue.push(data.audio_base64); 
+                                processAudioQueue(); 
+                            }
+                            
+                            if (data.end_session) { 
+                                isSessionEnded = true; 
+                                stopTimer();
+                                if (audioQueue.length === 0 && !isPlaying) showRating(); 
+                            }
+
+                        } catch (e) { console.error("JSON Error:", e); }
+                    }
+                }
+            } catch (err) {
+                if (err.name === 'AbortError') console.log("Stream aborted by user (Barge-in).");
+                else console.error("Stream Error:", err);
+            }
+        }
+
+        async function processAudioQueue() {
+            if (isPlaying || audioQueue.length === 0) return;
+            isPlaying = true;
+            document.getElementById('mascotBox').classList.add('active');
+            document.getElementById('status').innerText = "PINE đang trả lời...";
+            const base64Data = audioQueue.shift();
+            const audio = new Audio("data:audio/wav;base64," + base64Data);
+            currentAudioObject = audio;
+            audio.onended = () => {
+                isPlaying = false;
+                if (audioQueue.length === 0) {
+                    document.getElementById('mascotBox').classList.remove('active');
+                    if (isSessionEnded) { document.getElementById('status').innerText = "Kết thúc phiên."; setTimeout(showRating, 500); }
+                    else { document.getElementById('status').innerText = "Đến lượt bạn nói..."; }
+                }
+                processAudioQueue(); 
+            };
+            audio.onerror = () => { isPlaying = false; processAudioQueue(); };
+            try { await audio.play(); } catch (e) { isPlaying = false; }
+        }
+
+        function updateUXDashboard(metrics) {
+            if (metrics.latency_total) document.getElementById("ux-latency-total").innerText = metrics.latency_total;
+            
+            const score = metrics.sentiment;
+            const bar = document.getElementById("ux-sentiment-bar");
+            const text = document.getElementById("ux-sentiment-text");
+            const percent = ((score + 1) / 2) * 100;
+            bar.style.width = `${percent}%`;
+            if (score > 0.3) { text.innerText = "Tích cực 😄"; text.style.color = "#2ecc71"; bar.style.background = "#2ecc71"; }
+            else if (score < -0.3) { text.innerText = "Tiêu cực 😡"; text.style.color = "#ff6b6b"; bar.style.background = "#ff6b6b"; }
+            else { text.innerText = "Trung tính 😐"; text.style.color = "#f1c40f"; bar.style.background = "#f1c40f"; }
+            
+            // UPDATE INTENT (CẬP NHẬT TRỰC TIẾP)
+            const intentBox = document.getElementById("ux-intent");
+            intentBox.innerText = metrics.intent;
+            
+            // Hiệu ứng "pop"
+            intentBox.classList.remove("pop-anim");
+            void intentBox.offsetWidth; // Trigger reflow
+            intentBox.classList.add("pop-anim");
+        }
+
+        // --- 6. TIMER LOGIC ---
+        function startRecording() {
+            if (!mediaRecorder) return;
+            stopBotResponse(); 
+            
+            document.getElementById("ux-latency-total").innerText = "0.00";
+            document.getElementById("ux-latency-stt").innerText = "0.00";
+            document.getElementById("ux-latency-ai").innerText = "0.00";
+            
+            currentBotBubble = null;
+            audioChunks = [];
+            mediaRecorder.start();
+            document.getElementById('recordBtn').classList.add('recording');
+            document.getElementById('status').innerText = "Đang nghe bạn nói...";
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                mediaRecorder.stop();
+                document.getElementById('recordBtn').classList.remove('recording');
+                document.getElementById('status').innerHTML = '<i class="fas fa-brain fa-pulse"></i> Đang suy nghĩ...';
+                
+                t0_record = performance.now();
+                currentPhase = 'stt';
+                t1_stt_end = 0;
+                isLogicReady = false; 
+                
+                if(timerInterval) clearInterval(timerInterval);
+                timerInterval = setInterval(updateTimerUI, 30);
+            }
+        }
+
+        function switchToAiPhase() {
+            if (currentPhase === 'stt') {
+                t1_stt_end = performance.now(); 
+                currentPhase = 'ai'; 
+            }
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                currentPhase = 'idle';
+                updateTimerUI(); 
+            }
+        }
+
+        function updateTimerUI() {
+            const now = performance.now();
+            let stt_val = 0;
+            let ai_val = 0;
+
+            if (currentPhase === 'stt') {
+                stt_val = (now - t0_record) / 1000;
+                ai_val = 0;
+            } else if (currentPhase === 'ai') {
+                stt_val = (t1_stt_end - t0_record) / 1000;
+                ai_val = (now - t1_stt_end) / 1000;
+            } else if (currentPhase === 'idle' && t1_stt_end > 0) {
+                return; 
+            }
+
+            document.getElementById("ux-latency-stt").innerText = stt_val.toFixed(2);
+            document.getElementById("ux-latency-ai").innerText = ai_val.toFixed(2);
+            document.getElementById("ux-latency-total").innerText = (stt_val + ai_val).toFixed(2);
+        }
+
+        // --- 7. MICROPHONE SETUP ---
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            initVisualizer(stream);
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+            mediaRecorder.onstop = sendAudio;
+        }).catch(err => {
+            log("Lỗi: Không thể truy cập Micro", 'info');
+            document.getElementById('status').classList.add('error');
+        });
+
+        async function sendAudio() {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            if (audioBlob.size < 1000) { document.getElementById('status').innerText = "Nói quá ngắn, thử lại."; return; }
+            const cid = document.getElementById('customerId').value;
+            const formData = new FormData();
+            formData.append('file', audioBlob, 'voice.webm');
+            formData.append('customer_id', cid);
+            document.getElementById('status').innerHTML = '<i class="fas fa-brain fa-pulse"></i> Đang suy nghĩ...';
+            
+            try {
+                abortController = new AbortController();
+                const res = await fetch(`${API_URL}/chat-voice`, { method: 'POST', body: formData, signal: abortController.signal });
+                await readStream(res);
+            } catch (e) { 
+                if (e.name !== 'AbortError') {
+                    stopTimer();
+                    log("Lỗi xử lý AI", 'info'); 
+                    document.getElementById('status').innerText = "Lỗi kết nối!";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
